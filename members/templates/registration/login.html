@@ -2,11 +2,13 @@
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
-	<div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/blog-1.jpg);">
+	<div class="fh5co-parallax smallerbanner">
+
+	{% comment %} <div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);"> {% endcomment %}
 	{% comment %} <div class="fh5co-parallax smallerbanner" style="background-color: black !important"> {% endcomment %}
 	
 	<div class="overlay"></div>
-		<div class="container">
+		<div class="container smallerbanner" >
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell animate-box">
@@ -46,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="fh5co-parallax smallerbanner">
+	{% comment %} <div class="fh5co-parallax smallerbanner">
 		<div class="overlay"></div>
 		<div class="container" style="background-color: black !important;">
 			<div class="row">
@@ -71,11 +73,6 @@
 								<a href="{% url 'register' %}"><p class="link">Not a User? Register here!</p></a>
 								<a href="{% url 'password_reset' %}"><p class="link">Forgot username/password</p></a>
 							</div>
-							{% comment %} <div class="col-md-12">
-								<div class="form-group">
-									<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message"></textarea>
-								</div>
-							</div> {% endcomment %}
 							<div class="col-md-12">
 								<div class="form-group">
 									<input type="submit" value="Login" class="btn btn-primary">
@@ -87,7 +84,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
 	
 
 {% endblock %}
