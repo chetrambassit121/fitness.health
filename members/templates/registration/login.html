@@ -2,11 +2,8 @@
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
-	{% comment %} <div class="fh5co-parallax smallerbanner"> {% endcomment %}
 
-	<div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);">
-	{% comment %} <div class="fh5co-parallax smallerbanner" style="background-color: black !important"> {% endcomment %}
-	
+	{% comment %} <div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);">
 	<div class="overlay"></div>
 		<div class="container smallerbanner" >
 			<div class="row">
@@ -19,7 +16,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
 	{% comment %} <div class="fh5co-parallax smallerbanner"> {% endcomment %}
 		<div class="overlay"></div>
 		<div class="container fh5co-parallax" style="background-image: url(/static/images/fitnesspic2.jpg);">
@@ -33,12 +30,12 @@
 							{% csrf_token %}
 							<div class="row-md-2">
 								<div class="form-group">
-									<input type="text" class="" name="username" placeholder="GuestUser1">
+									<input type="text" class="loginform" name="username" placeholder="GuestUser1">
 								</div>
 							</div>
 							<div class="row-md-2">
 								<div class="form-group">
-									<input type="password" class="" name="password" placeholder="password12345!">
+									<input type="password" class="loginform" name="password" placeholder="password12345!">
 								</div>
 							</div>
 							<div class="login-links">
