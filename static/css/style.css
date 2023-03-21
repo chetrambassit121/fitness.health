@@ -230,7 +230,7 @@ body {
   max-width: 150px;
   margin-left: 20px;
   color: white !important;
-  background: transparent;
+  /* background: transparent; */
 }
 
 .dropdown-menu {
