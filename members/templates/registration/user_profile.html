@@ -46,10 +46,10 @@
                                 <span class="bg-secondary p-1 px-4 rounded"></span>
                                 <h4 class="mt-2 mb-0">{{ user.username }}</h4>
                                 <span>
-                                  {% if profile.first_name %}{{ profile.first_name }}{% endif %} 
+                                  {% if profile.first_name %}<h4 style="color: black;">{{ profile.first_name }}{% endif %} 
                                   {% if profile.last_name %}{{ profile.last_name }}{% endif %}<br>
                                   {% if profile.location %}{{ profile.location }}{% endif %}<br>
-                                  {% if profile.birth_date %}D.O.B: {{ profile.birth_date }}{% endif %}
+                                  {% if profile.birth_date %}D.O.B: {{ profile.birth_date }}</h4>{% endif %}
                                 </span>
                                 
                                 <div class="px-4 mt-1">
