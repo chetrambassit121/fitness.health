@@ -1,0 +1,25 @@
+{% load static %}
+
+
+        <form method='POST'>
+            {% csrf_token %}
+            <div class="row-md-2">
+                <div class="form-group">
+                    <input type="text" class="loginform" name="username" placeholder="GuestUser1">
+                </div>
+            </div>
+            <div class="row-md-2">
+                <div class="form-group">
+                    <input type="password" class="loginform" name="password" placeholder="password12345!">
+                </div>
+            </div>
+            <div class="login-links">
+                <a href="{% url 'register' %}"><p class="link">Not a User? Register here!</p></a>
+                <a href="{% url 'password_reset' %}"><p class="link">Forgot username/password</p></a>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
