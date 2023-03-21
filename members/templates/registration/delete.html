@@ -12,21 +12,29 @@
 				<div class="fh5co-intro fh5co-table-cell animate-box">
 					<h1 class="text-center">Don't Stop</h1>
                     <h3 class="text-center header-white">Your Fitness Journey</h3>
-					<form method='POST'>
-						{% csrf_token %}
-                        <p>Are you sure you want to delete "{{ user }}"?</p>
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="submit" value="Delete" class="btn btn-danger">
-							</div>
-						</div>
-						<small><a target="_blank" href="https://www.pexels.com/photo/adult-architecture-athlete-boardwalk-221210/">Photo by Pixabay</a></small>
-					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div><!-- end: fh5co-parallax -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+			<div class="fh5co-intro fh5co-table-cell animate-box">
+				<form method='POST'>
+					{% csrf_token %}
+					<h4>Are you sure you want to delete "{{ user }}"?</h4>
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="submit" value="Delete" class="btn btn-danger">
+						</div>
+					</div>
+					<small><a target="_blank" href="https://www.pexels.com/photo/adult-architecture-athlete-boardwalk-221210/">Photo by Pixabay</a></small>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
