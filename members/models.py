@@ -98,7 +98,7 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=100, blank=True, null=True)
     picture = models.ImageField(
         upload_to="images/profile_pictures",
-        default="images/default_pic.jpg",
+        default="images/profile_pictures/default_pic.jpg",
         blank=False,
     )
     followers = models.ManyToManyField(User, blank=True, related_name="followers")

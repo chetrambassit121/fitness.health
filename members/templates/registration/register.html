@@ -2,72 +2,83 @@
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/fitnesspic3.jpg);">
+<div class="fh5co-parallax" style="background-image: url(/static/images/fitnesspic3.jpg);">
 	<div class="overlay"></div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table smallerbanner">
-				<div class="fh5co-intro fh5co-table-cell animate-box loginform smallerbanner" id="registerForm" data-branches-url="{% url 'ajax_load_citys' %}" novalidate>
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+				<div class="fh5co-intro fh5co-table-cell animate-box">
 					<h1 class="text-center">Register</h1>
-					<form method='POST'>
-						{% csrf_token %}
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.username }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.email }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.first_name }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.last_name }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.state }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.city }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.password1 }}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								{{ form.password2 }}
-							</div>
-						</div>
-						{% comment %} <div class="col-md-12">
-							<div class="form-group">
-								<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message"></textarea>
-							</div>
-						</div> {% endcomment %}
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="submit" value="Register" class="btn btn-primary">
-							</div>
-						</div>
-						<small><a target="_blank" href="https://www.pexels.com/photo/young-athletes-preparing-for-running-in-training-hall-3764014/">Photo by Andrea Piacquadio</a></small>
-					</form>
+					<h3 style="color: white;">Create an account, interact with other fitness users!</h3>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 </div><!-- end: fh5co-parallax -->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+			<div class="fh5co-intro fh5co-table-cell animate-box loginform" id="registerForm" data-branches-url="{% url 'ajax_load_citys' %}" novalidate>
+				<h1 class="text-center">Register</h1>
+				<form method='POST'>
+					{% csrf_token %}
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.username }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.email }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.first_name }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.last_name }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.state }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.city }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.password1 }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form.password2 }}
+						</div>
+					</div>
+					{% comment %} <div class="col-md-12">
+						<div class="form-group">
+							<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message"></textarea>
+						</div>
+					</div> {% endcomment %}
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="submit" value="Register" class="btn btn-primary">
+						</div>
+					</div>
+					<small><a target="_blank" href="https://www.pexels.com/photo/young-athletes-preparing-for-running-in-training-hall-3764014/">Photo by Andrea Piacquadio</a></small>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>

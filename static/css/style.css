@@ -111,7 +111,7 @@ form.example::after {
 }
 
 body {
-  background-color: #000 !important;
+  /* background-color: #000 !important; */
 }
 
 .margintop {
@@ -147,7 +147,7 @@ body {
 }
 
 ::placeholder {
-  color: white;
+  color: black;
   opacity: 1; /* Firefox */
 }
 
@@ -1184,13 +1184,13 @@ figure {
   visibility: visible;
 }
 
-.smallerbanner {
-  height: 800px !important;
+/* .smallerbanner {
+  height: 650px !important;
 }
 
 .largerbanner {
   height: 3500px !important;
-}
+} */
 
 .fh5co-table,
 .fh5co-table-cell,
