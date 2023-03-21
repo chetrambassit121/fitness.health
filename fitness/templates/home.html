@@ -12,12 +12,11 @@
                         <div class="col-md-7">
                             <h2>Fitness &amp; Health <br>is a <b>Mentality</b></h2>
                             {% if user.is_authenticated %}
-                                <span><a class="btn btn-primary" href="{% url 'show_profile_page' request.user.profile.pk %}">Welcome {{ request.user.username }}</a></span>
-                            {% else %}
-                                <span><a class="btn btn-primary" href="{% url 'login' %}">Start Your Journey</a></span>
+                                <span><h3 style="color: white !important">Welcome {{ request.user.username }}</h3></span>
+                            {% comment %} {% else %}
+                                <span><a class="btn btn-primary" href="{% url 'login' %}">Start Your Journey</a></span> {% endcomment %}
                                 {% comment %} <span><a class="btn btn-primary">Start Your Journey</span> {% endcomment %}
                             {% endif %}
-                            <small><a target="_blank" href="https://www.pexels.com/photo/photo-of-man-with-muscular-body-1547248/">Photo by Pikx By Panther</a></small>
                         </div>
                     </div>
                 </div>
@@ -25,6 +24,10 @@
         </div>
     </div>
     <!-- end:fh5co-hero -->
+    <div class="text-center">
+        <small ><a target="_blank"  href="https://www.pexels.com/photo/photo-of-man-with-muscular-body-1547248/">Photo by Pikx By Panther</a></small>
+    </div>
+
     <div id="fh5co-schedule-section" class="fh5co-lightgray-section">
         <div class="container">
             <div class="row">
