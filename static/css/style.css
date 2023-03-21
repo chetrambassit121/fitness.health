@@ -124,11 +124,11 @@ body {
 
 .loginform {
   /* margin-top: 100px; */
-  background-color: transparent;
-  color: white;
+  /* background-color: transparent; */
+  color: black;
   width: 250px;
-  border: #17ebfa !important;
-  border-radius: 3px !important;
+  /* border: #17ebfa !important; */
+  /* border-radius: 3px !important; */
 }
 
 .login-form {
