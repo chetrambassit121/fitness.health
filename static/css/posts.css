@@ -121,7 +121,7 @@
 }
 
 .thumbs {
-    color: white !important;
+    color: black !important;
 }
 
 .margin-bottom {
@@ -134,7 +134,12 @@
     max-height: 400px;
     width: 400px;
     max-width: 100%;
+    margin-bottom: 10px;
     /* max-width: none !important; */
+}
+
+.postlist  {
+    color: black !important;
 }
 
 .comment-image {
@@ -196,6 +201,10 @@
     color: white;
 }
 
+.black {
+    color: black;
+}
+
 .thumbs-fillred {
     background-color: red;
 }
@@ -220,7 +229,7 @@
 .sharedpost {
     margin-left: 125px !important;
     margin-bottom: 15px !important;
-    background-color: rgb(1, 1, 73);
+    background-color: rgb(182, 182, 193);
     opacity: 0.90;
 }
 
@@ -233,8 +242,7 @@
 }
 
 .sharedpostbody {
-    padding-left: 15px;
-    padding-right: 15px;
+   padding: 11px;
 }
 
 .post-button {
