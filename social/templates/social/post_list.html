@@ -6,23 +6,24 @@
 
 
    
-    <div class="fh5co-parallax smallerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);">
-        <div class="overlay"></div>
-            <div class="container" >
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
-                        <div class="fh5co-intro fh5co-table-cell animate-box">
-                            <h1 class="row justify-content-center">Public Feed</h1>
-                            <h3 style="color: white !important;">Share your fitness journey with others!</h3>
-                        </div>
-                    </div>
+    <div class="fh5co-parallax largerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);">
+        {% comment %} <div class="overlay"></div> {% endcomment %}
+        <div class="container" style="height: 400px !important">
+            <div class="row margintop">
+                <div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro animate-box">
+                    <h1 class="row justify-content-center">Public Feed</h1>
+                    <h3 style="color: white !important;">Share your fitness journey with others!</h3>
                 </div>
+                {% comment %} </div> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
             </div>
         </div>
     </div>
     <div class="text-center">
         <small><a target="_blank" style="color: #4CB648; font-size: 10px !important;" href="https://www.pexels.com/photo/woman-lifting-barbell-1552249/">Photo by Leon Ardho</a></small>
     </div>
+{% comment %} <section class="content-item" id="comments"> {% endcomment %}
 	
     <div class="container postlist" style="">   
        
@@ -291,7 +292,7 @@
             </div>
         </div>
         
-    </section>
+{% comment %} </section> {% endcomment %}
             
             {% comment %} </div> {% endcomment %}
             {% comment %} </div> {% endcomment %}
