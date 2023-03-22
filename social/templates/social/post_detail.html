@@ -6,316 +6,306 @@
 
 
 <div class="fh5co-parallax largerbanner" style="background-image: url(/static/images/fitnesspic2.jpg);">
-    {% comment %} <div class="container">    {% endcomment %}
-        {% comment %} <div class="row"> {% endcomment %}
-			{% comment %} <div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table"> {% endcomment %}
-            {% comment %} <div class="fh5co-intro fh5co-table-cell animate-box"> {% endcomment %}
-    <section class="content-item" id="comments">
-        <div class="container">   
-        <div class="col-sm-8 col-md-offset-2">  
-            {% comment %} <div class="row justify-content-center"> {% endcomment %}
-                <h2 style="color: white;" class="row justify-content-center">Comments</h2>
-                {% comment %} <div class="row mt-5"> {% endcomment %}
-                    {% comment %} <div class="col-md-5 col-sm-6"> {% endcomment %}
-                <h2 class="row justify-content-center"><a href="{% url 'post-list' %}" class="btn btn-light row justify-content-center">Back To Posts</a></h2>
-                    {% comment %} </div> {% endcomment %}
-            {% comment %} </div> {% endcomment %}
-            {% if post.shared_user %}
+    <div class="container">   
+        <div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+            <div class="fh5co-intro fh5co-table-cell animate-box">
+                <h1>Comments</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content-item" id="comments">
+    <div class="container">   
+    <div class="col-sm-8 col-md-offset-2">  
+        {% comment %} <div class="row justify-content-center"> {% endcomment %}
+            <h2 style="color: white;" class="row justify-content-center">Comments</h2>
+            {% comment %} <div class="row mt-5"> {% endcomment %}
+                {% comment %} <div class="col-md-5 col-sm-6"> {% endcomment %}
+            <h2 class="row justify-content-center"><a href="{% url 'post-list' %}" class="btn btn-light row justify-content-center">Back To Posts</a></h2>
+                {% comment %} </div> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+        {% if post.shared_user %}
+            <div class="media">
+                {% comment %} <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a> {% endcomment %}
+                <a class="pull-left" href="{% url 'show_profile_page' post.shared_user.profile.pk %}"> 
+                    <img src="{{ post.shared_user.profile.picture.url }}" alt="" class="shared-image">
+                    {% comment %} <small class="postauthor">{{ post.shared_user }}</small> {% endcomment %}
+                </a>
+                <div class="media-body">
+                    {% comment %} {% if post.body %} {% endcomment %}
+                    <h4 class="media-heading">{{ post.shared_user }} shared a post {% if request.user == post.shared_user %}<a href="{% url 'post-delete' post.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                      </svg></a>{% endif %}</h4>
+                    
+                        
+                        {% comment %} <p>**{{ user.username }} can delete this Shared Post**</p> {% endcomment %}
+                    
+                    <p class="white">{{ post.shared_body }}</p>
+                    {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
+                    <ul class="list-unstyled list-inline media-detail pull-left">
+                        <li><i class="fa fa-calendar"></i>{{post.created_on}}</li>
+                        {% comment %} <li class=""><a href="{% url 'post-detail' post.pk %}" class="">Comments:{{ comment.count }}</a></li> {% endcomment %}
+
+                        {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
+                    </ul>
+                    
+                    <ul class="list-unstyled list-inline media-detail pull-right">
+                        <li class="">
+                            <form method="POST" action="{% url 'like' post.id %}" class="like-form" id="{{post.id}}">
+                                {% csrf_token %}
+                                {% if user not in post.likes.all %}
+                                    <input type="hidden"  name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn like-btn{{post.id}}" type="submit">
+                                        <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    </button>
+                                {% else %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn thumbs-fillgreen like-btn{{post.id}}" type="submit">
+                                        <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </li>
+                        <li class="">
+                            <form method="POST" action="{% url 'dislike' post.id %}" class="dislike-form thumb-buttons" id='{{post.id}}'>
+                                {% csrf_token %}
+                                {% if user not in post.dislikes.all %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class="thumbs-btn dislike-btn{{post.id}}" type="submit" >
+                                        <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    </button>
+                                {% else %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn thumbs-fillred dislike-btn{{post.id}}" type="submit" >
+                                        <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </li>
+                    </ul>
+                    
+                {% comment %} {% endif %} {% endcomment %}
+                </div>
+            </div>
+            <div class="media sharedpost sharedpostbody" style="border-top: none !important;">
+                <a href="{% url 'show_profile_page' post.author.profile.pk %}"> 
+                    <img src="{{ post.author.profile.picture.url }}" alt="" class="shared-image" style="margin: 8px;">
+                </a>
+                <div class="media-body sharedpostbody">
+                    <h4 class="media-heading">{{ post.author }} created a post</h4>
+                    <p class="white">{{ post.body }}</p>
+                    {% if post.image %}
+                        <div class="ajax_image" style="">
+                            <img src="{{ post.image.url }}" class="comment-image"/>
+                        </div>
+                    {% endif %}
+                    {% if post.video %}
+                        <video class="embed-responsive embed-responsive-16by9" controls="controls" class="comment-image">
+                            <source src="{{post.video.url}}" type="video/mp4" />
+                        </video>
+                    {% endif %}
+                    {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
+                    <ul class="list-unstyled list-inline media-detail pull-left">
+                        <li><i class="fa fa-calendar"></i>{{post.shared_on}}</li>
+                        {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
+                    </ul>
+                    <ul class="list-unstyled list-inline media-detail pull-right">
+                    </ul>
+                    {% comment %} {% endif %} {% endcomment %}
+                </div>
+            </div>
+        {% else %}
+            <div class="media">
+            
+                <a class="pull-left" href="{% url 'show_profile_page' post.author.profile.pk %}"> 
+                    <img src="{{ post.author.profile.picture.url }}" alt="" class="media-object shared-image">
+                    {% comment %} <small class="postauthor">{{ post.shared_user }}</small> {% endcomment %}
+                </a>
+                
+                <div class="media-body">
+                    {% comment %} {% if post.body %} {% endcomment %}
+                    <h4 class="media-heading">{{ post.author }} created a post {% if request.user == post.author %}<a href="{% url 'post-delete' post.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                      </svg></a>{% endif %}</h4>
+                    <p class="white">{{ post.body }}</p>
+                    {% if post.image %}
+                        <div class="ajax_image" style="">
+                            <img src="{{ post.image.url }}" class="comment-image"/>
+                        </div>
+                    {% endif %}
+                    {% if post.video %}
+                        <video class="embed-responsive embed-responsive-16by9" controls="controls" class="comment-image">
+                            <source src="{{post.video.url}}" type="video/mp4" />
+                        </video>
+                    {% endif %}
+                    {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
+                    <ul class="list-unstyled list-inline media-detail pull-left">
+                        <li><i class="fa fa-calendar"></i>{{ post.created_on }}</li>
+                        {% comment %} <li class=""><a href="{% url 'post-detail' post.pk %}" class="">Comments:{{ comment.count }}</a></li> {% endcomment %}
+                        {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
+                    </ul>
+                    <ul class="list-unstyled list-inline media-detail pull-right">
+                        <li class="">
+                            <form method="POST" action="{% url 'like' post.id %}" class="like-form" id="{{post.id}}">
+                                {% csrf_token %}
+                                {% if user not in post.likes.all %}
+                                    <input type="hidden"  name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn like-btn{{post.id}}" type="submit">
+                                        <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    </button>
+                                {% else %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn thumbs-fillgreen like-btn{{post.id}}" type="submit">
+                                        <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </li>
+                        <li class="">
+                            <form method="POST" action="{% url 'dislike' post.id %}" class="dislike-form thumb-buttons" id='{{post.id}}'>
+                                {% csrf_token %}
+                                {% if user not in post.dislikes.all %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class="thumbs-btn dislike-btn{{post.id}}" type="submit" >
+                                        <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    </button>
+                                {% else %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                                    <button class=" thumbs-btn thumbs-fillred dislike-btn{{post.id}}" type="submit" >
+                                        <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </li>
+                    </ul>
+                    {% comment %} {% endif %} {% endcomment %}
+                </div>
+            </div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data" class="top">
+            {% comment %} <h3 class="pull-left">New Posts</h3> {% endcomment %}
+            {% comment %} <button type="submit" class="btn btn-normal pull-right">Submit</button> {% endcomment %}
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-3 col-lg-2 hidden-xs">
+                        <a href="{% url 'show_profile_page' request.user.profile.pk %}"><img class="shared-image" src="{{ request.user.profile.picture.url }}"></a>
+                        {% comment %} <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""> {% endcomment %}
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                        <form class="form-control" id="message" placeholder="Your message" >
+                            <div class="form-group">
+                                {% csrf_token %}
+                                {{ form | crispy }}
+                                {{ video_form | crispy }}
+                                {% comment %} <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: black;"></textarea> {% endcomment %}
+                                {% comment %} <h4 style="color: white;">Leave a post</h4>
+                                <label for="message">Message</label>
+                                <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: black;"></textarea> {% endcomment %}
+                            </div>
+                            {% comment %} <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="fullname" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                            </div> {% endcomment %}
+                            {% comment %} <div class="form-group">
+                                <p class="text-secondary">If you have a <a href="#" class="alert-link">gravatar account</a> your address will be used to display your profile picture.</p>
+                            </div> {% endcomment %}
+                            {% comment %} <div class="form-inline">
+                                <input type="checkbox" name="check" id="checkbx" class="mr-1">
+                                <label for="subscribe">Subscribe me to the newsletter</label>
+                            </div> {% endcomment %}
+                            <div class="form-group">
+                                {% comment %} <button id="post" class="btn">Post</button> {% endcomment %}
+                                <button type="submit" id='btn' class="btn btn-success mt-3">Comment</button>
+                            </div>
+                        </form>
+                        {% comment %} <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea> {% endcomment %}
+                    </div>
+                </div>  	
+            </fieldset>
+        </form>
+        {% for comment in comments %}
+            {% if comment.is_parent %}
                 <div class="media">
                     {% comment %} <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a> {% endcomment %}
-                    <a class="pull-left" href="{% url 'show_profile_page' post.shared_user.profile.pk %}"> 
-                        <img src="{{ post.shared_user.profile.picture.url }}" alt="" class="shared-image">
+                    <a class="pull-left" href="{% url 'show_profile_page' comment.author.profile.pk %}"> 
+                        <img src="{{ comment.author.profile.picture.url }}" alt="" class="shared-image">
                         {% comment %} <small class="postauthor">{{ post.shared_user }}</small> {% endcomment %}
                     </a>
                     <div class="media-body">
                         {% comment %} {% if post.body %} {% endcomment %}
-                        <h4 class="media-heading">{{ post.shared_user }} shared a post {% if request.user == post.shared_user %}<a href="{% url 'post-delete' post.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                          </svg></a>{% endif %}</h4>
-                        
-                            
-                            {% comment %} <p>**{{ user.username }} can delete this Shared Post**</p> {% endcomment %}
-                        
-                        <p class="white">{{ post.shared_body }}</p>
+                        <h4 class="media-heading">{{ comment.author }} created a comment {% if request.user == comment.author %}
+                            <a href="{% url 'comment-delete' post.pk comment.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                              </svg></a>{% endif %}</h4>
+                        <p class="white">{{ comment.comment }}</p>
                         {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
                         <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>{{post.created_on}}</li>
-                            {% comment %} <li class=""><a href="{% url 'post-detail' post.pk %}" class="">Comments:{{ comment.count }}</a></li> {% endcomment %}
-
+                            <li><i class="fa fa-calendar"></i>{{comment.created_on}}</li>
                             {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
                         </ul>
                         
                         <ul class="list-unstyled list-inline media-detail pull-right">
+                            <li>
+                                <div class="d-flex flex-row">
+                                    <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">View Replies: {{comment.children.all.count}}</a></button>
+                                    &nbsp;&nbsp;
+                                    {% comment %} <button class="remove-default-btn reply-button" onclick="myFunction()">Reply Form</button> {% endcomment %}
+                                </div>
+                            </li>
                             <li class="">
-                                <form method="POST" action="{% url 'like' post.id %}" class="like-form" id="{{post.id}}">
+                                <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}" class="like-form" id="{{comment.pk}}">
                                     {% csrf_token %}
-                                    {% if user not in post.likes.all %}
-                                        <input type="hidden"  name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn like-btn{{post.id}}" type="submit">
-                                            <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                    {% if request.user in comment.likes.all %}
+                                        <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
+                                        <button class="remove-default-btn thumbs-btn thumbs-fillgreen like-btn{{comment.pk}}" type="submit">
+                                            <i class="fa fa-thumbs-up thumbs like-icon{{comment.pk}}"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
                                         </button>
                                     {% else %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn thumbs-fillgreen like-btn{{post.id}}" type="submit">
-                                            <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
+                                        <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
+                                        <button class="remove-default-btn thumbs-btn like-btn{{comment.pk}}" type="submit">
+                                            <i class="fa fa-thumbs-up thumbs like-icon{{comment.pk}}" > <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
                                         </button>
                                     {% endif %}
                                 </form>
                             </li>
+                         
                             <li class="">
-                                <form method="POST" action="{% url 'dislike' post.id %}" class="dislike-form thumb-buttons" id='{{post.id}}'>
+                                <form method="POST" action="{% url 'comment-dislike' post.pk comment.pk %}" class="dislike-form" id="{{comment.pk}}">
                                     {% csrf_token %}
-                                    {% if user not in post.dislikes.all %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class="thumbs-btn dislike-btn{{post.id}}" type="submit" >
-                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                    {% if request.user in comment.dislikes.all %}
+                                        <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
+                                        <button class="remove-default-btn thumbs-btn thumbs-fillred dislike-btn{{comment.pk}}" type="submit">
+                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{comment.pk}}" > <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
                                         </button>
                                     {% else %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn thumbs-fillred dislike-btn{{post.id}}" type="submit" >
-                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
+                                        <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
+                                        <button class="remove-default-btn thumbs-btn dislike-btn{{comment.pk}}" type="submit">
+                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{comment.pk}}" > <span class="dislike_count{{comment.pk}}">{{ comment.dislikes.all.count }}</span></i>
                                         </button>
                                     {% endif %}
                                 </form>
                             </li>
                         </ul>
-                        
+                        {% comment %} <div class="d-flex flex-row">
+                            <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
+                            &nbsp;&nbsp;
+                            <button onclick="myFunction()">Try it</button>
+                        </div> {% endcomment %}
                     {% comment %} {% endif %} {% endcomment %}
                     </div>
+                   
                 </div>
-                <div class="media sharedpost sharedpostbody" style="border-top: none !important;">
-                    <a href="{% url 'show_profile_page' post.author.profile.pk %}"> 
-                        <img src="{{ post.author.profile.picture.url }}" alt="" class="shared-image" style="margin: 8px;">
-                    </a>
-                    <div class="media-body sharedpostbody">
-                        <h4 class="media-heading">{{ post.author }} created a post</h4>
-                        <p class="white">{{ post.body }}</p>
-                        {% if post.image %}
-                            <div class="ajax_image" style="">
-                                <img src="{{ post.image.url }}" class="comment-image"/>
-                            </div>
-                        {% endif %}
-                        {% if post.video %}
-                            <video class="embed-responsive embed-responsive-16by9" controls="controls" class="comment-image">
-                                <source src="{{post.video.url}}" type="video/mp4" />
-                            </video>
-                        {% endif %}
-                        {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
-                        <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>{{post.shared_on}}</li>
-                            {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
-                        </ul>
-                        <ul class="list-unstyled list-inline media-detail pull-right">
-                        </ul>
-                        {% comment %} {% endif %} {% endcomment %}
-                    </div>
-                </div>
-            {% else %}
-                <div class="media">
-                
-                    <a class="pull-left" href="{% url 'show_profile_page' post.author.profile.pk %}"> 
-                        <img src="{{ post.author.profile.picture.url }}" alt="" class="media-object shared-image">
-                        {% comment %} <small class="postauthor">{{ post.shared_user }}</small> {% endcomment %}
-                    </a>
-                    
-                    <div class="media-body">
-                        {% comment %} {% if post.body %} {% endcomment %}
-                        <h4 class="media-heading">{{ post.author }} created a post {% if request.user == post.author %}<a href="{% url 'post-delete' post.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                          </svg></a>{% endif %}</h4>
-                        <p class="white">{{ post.body }}</p>
-                        {% if post.image %}
-                            <div class="ajax_image" style="">
-                                <img src="{{ post.image.url }}" class="comment-image"/>
-                            </div>
-                        {% endif %}
-                        {% if post.video %}
-                            <video class="embed-responsive embed-responsive-16by9" controls="controls" class="comment-image">
-                                <source src="{{post.video.url}}" type="video/mp4" />
-                            </video>
-                        {% endif %}
-                        {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
-                        <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>{{ post.created_on }}</li>
-                            {% comment %} <li class=""><a href="{% url 'post-detail' post.pk %}" class="">Comments:{{ comment.count }}</a></li> {% endcomment %}
-                            {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
-                        </ul>
-                        <ul class="list-unstyled list-inline media-detail pull-right">
-                            <li class="">
-                                <form method="POST" action="{% url 'like' post.id %}" class="like-form" id="{{post.id}}">
-                                    {% csrf_token %}
-                                    {% if user not in post.likes.all %}
-                                        <input type="hidden"  name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn like-btn{{post.id}}" type="submit">
-                                            <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}" ><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
-                                        </button>
-                                    {% else %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn thumbs-fillgreen like-btn{{post.id}}" type="submit">
-                                            <i class="fa fa-thumbs-up thumbs like-icon{{post.id}}"><span class="like_count{{post.id}}">{{ post.likes.all.count }}</span></i>
-                                        </button>
-                                    {% endif %}
-                                </form>
-                            </li>
-                            <li class="">
-                                <form method="POST" action="{% url 'dislike' post.id %}" class="dislike-form thumb-buttons" id='{{post.id}}'>
-                                    {% csrf_token %}
-                                    {% if user not in post.dislikes.all %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class="thumbs-btn dislike-btn{{post.id}}" type="submit" >
-                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
-                                        </button>
-                                    {% else %}
-                                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                                        <button class=" thumbs-btn thumbs-fillred dislike-btn{{post.id}}" type="submit" >
-                                            <i class="fa fa-thumbs-down thumbs dislike-icon{{post.id}}" > <span class="dislike_count{{post.id}}">{{ post.dislikes.all.count }}</span></i>
-                                        </button>
-                                    {% endif %}
-                                </form>
-                            </li>
-                        </ul>
-                        {% comment %} {% endif %} {% endcomment %}
-                    </div>
-                </div>
-            {% endif %}
-            <form method="POST" enctype="multipart/form-data" class="top">
-                {% comment %} <h3 class="pull-left">New Posts</h3> {% endcomment %}
-                {% comment %} <button type="submit" class="btn btn-normal pull-right">Submit</button> {% endcomment %}
-                <fieldset>
-                    <div class="row">
-                        <div class="col-sm-3 col-lg-2 hidden-xs">
-                            <a href="{% url 'show_profile_page' request.user.profile.pk %}"><img class="shared-image" src="{{ request.user.profile.picture.url }}"></a>
-                            {% comment %} <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""> {% endcomment %}
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                            <form class="form-control" id="message" placeholder="Your message" >
-                                <div class="form-group">
-                                    {% csrf_token %}
-                                    {{ form | crispy }}
-                                    {{ video_form | crispy }}
-                                    {% comment %} <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: black;"></textarea> {% endcomment %}
-                                    {% comment %} <h4 style="color: white;">Leave a post</h4>
-                                    <label for="message">Message</label>
-                                    <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: black;"></textarea> {% endcomment %}
-                                </div>
-                                {% comment %} <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" name="name" id="fullname" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" name="email" id="email" class="form-control">
-                                </div> {% endcomment %}
-                                {% comment %} <div class="form-group">
-                                    <p class="text-secondary">If you have a <a href="#" class="alert-link">gravatar account</a> your address will be used to display your profile picture.</p>
-                                </div> {% endcomment %}
-                                {% comment %} <div class="form-inline">
-                                    <input type="checkbox" name="check" id="checkbx" class="mr-1">
-                                    <label for="subscribe">Subscribe me to the newsletter</label>
-                                </div> {% endcomment %}
-                                <div class="form-group">
-                                    {% comment %} <button id="post" class="btn">Post</button> {% endcomment %}
-                                    <button type="submit" id='btn' class="btn btn-success mt-3">Comment</button>
-                                </div>
-                            </form>
-                            {% comment %} <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea> {% endcomment %}
-                        </div>
-                    </div>  	
-                </fieldset>
-            </form>
-            {% for comment in comments %}
-                {% if comment.is_parent %}
-                    <div class="media">
-                        {% comment %} <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a> {% endcomment %}
-                        <a class="pull-left" href="{% url 'show_profile_page' comment.author.profile.pk %}"> 
-                            <img src="{{ comment.author.profile.picture.url }}" alt="" class="shared-image">
-                            {% comment %} <small class="postauthor">{{ post.shared_user }}</small> {% endcomment %}
-                        </a>
-                        <div class="media-body">
-                            {% comment %} {% if post.body %} {% endcomment %}
-                            <h4 class="media-heading">{{ comment.author }} created a comment {% if request.user == comment.author %}
-                                <a href="{% url 'comment-delete' post.pk comment.pk %}" class="red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                  </svg></a>{% endif %}</h4>
-                            <p class="white">{{ comment.comment }}</p>
-                            {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> {% endcomment %}
-                            <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>{{comment.created_on}}</li>
-                                {% comment %} <li><i class="fa fa-thumbs-up"></i>13</li> {% endcomment %}
-                            </ul>
-                            
-                            <ul class="list-unstyled list-inline media-detail pull-right">
-                                <li>
-                                    <div class="d-flex flex-row">
-                                        <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">View Replies: {{comment.children.all.count}}</a></button>
-                                        &nbsp;&nbsp;
-                                        {% comment %} <button class="remove-default-btn reply-button" onclick="myFunction()">Reply Form</button> {% endcomment %}
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}" class="like-form" id="{{comment.pk}}">
-                                        {% csrf_token %}
-                                        {% if request.user in comment.likes.all %}
-                                            <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
-                                            <button class="remove-default-btn thumbs-btn thumbs-fillgreen like-btn{{comment.pk}}" type="submit">
-                                                <i class="fa fa-thumbs-up thumbs like-icon{{comment.pk}}"> <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
-                                            </button>
-                                        {% else %}
-                                            <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
-                                            <button class="remove-default-btn thumbs-btn like-btn{{comment.pk}}" type="submit">
-                                                <i class="fa fa-thumbs-up thumbs like-icon{{comment.pk}}" > <span class="like_count{{comment.pk}}">{{ comment.likes.all.count }}</span></i>
-                                            </button>
-                                        {% endif %}
-                                    </form>
-                                </li>
-                             
-                                <li class="">
-                                    <form method="POST" action="{% url 'comment-dislike' post.pk comment.pk %}" class="dislike-form" id="{{comment.pk}}">
-                                        {% csrf_token %}
-                                        {% if request.user in comment.dislikes.all %}
-                                            <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
-                                            <button class="remove-default-btn thumbs-btn thumbs-fillred dislike-btn{{comment.pk}}" type="submit">
-                                                <i class="fa fa-thumbs-down thumbs dislike-icon{{comment.pk}}" > <span class="dislike_count{{comment.id}}">{{ comment.dislikes.all.count }}</span></i>
-                                            </button>
-                                        {% else %}
-                                            <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
-                                            <button class="remove-default-btn thumbs-btn dislike-btn{{comment.pk}}" type="submit">
-                                                <i class="fa fa-thumbs-down thumbs dislike-icon{{comment.pk}}" > <span class="dislike_count{{comment.pk}}">{{ comment.dislikes.all.count }}</span></i>
-                                            </button>
-                                        {% endif %}
-                                    </form>
-                                </li>
-                            </ul>
-                            {% comment %} <div class="d-flex flex-row">
-                                <button class="remove-default-btn reply-button"><a href="{% url 'view-comment-reply' comment.pk %}">Replies: {{comment.children.all.count}}</a></button>
-                                &nbsp;&nbsp;
-                                <button onclick="myFunction()">Try it</button>
-                            </div> {% endcomment %}
-                        {% comment %} {% endif %} {% endcomment %}
-                        </div>
-                       
-                    </div>
-                  
-                    <div class="{{comment.pk}}" id="replyform">
-                        <div class="media marginleft reply-form" style="border-top: none !important; margin-top: none !important;">
-                            <div class="media-body" >
-                                <form method="POST" class="reply-form" data-toggle='reply-form' data-target="{{comment.pk}}" value="{{comment.pk}}" action="{% url 'comment-reply' post.pk comment.pk %}">
-                                    {% csrf_token %}
-                                    {{ form | crispy }}
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-success mt-3">Reply</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {% comment %} <div>
-                        <button class="remove-default-btn"><i class="fa fa-comment-dots" onclick="myFunction('n{{ comment.pk }}')"></i></button>
-                    </div>
-                    <div class="media marginleft reply-form" id="n{{ comment.pk }}" style="border-top: none !important; margin-top: none !important;">
+              
+                <div class="{{comment.pk}}" id="replyform">
+                    <div class="media marginleft reply-form" style="border-top: none !important; margin-top: none !important;">
                         <div class="media-body" >
-                            <form method="POST" class="reply-form" action="{% url 'comment-reply' post.pk comment.pk %}">
+                            <form method="POST" class="reply-form" data-toggle='reply-form' data-target="{{comment.pk}}" value="{{comment.pk}}" action="{% url 'comment-reply' post.pk comment.pk %}">
                                 {% csrf_token %}
                                 {{ form | crispy }}
                                 <div class="d-grid gap-2">
@@ -323,36 +313,51 @@
                                 </div>
                             </form>
                         </div>
-                    </div> {% endcomment %}
-                   
-                {% endif %}
-                {% include 'social/replies.html' %}
-            {% endfor %}
-        </div>
-        </div>
-        <div class="row justify-content-center mt-3 page ">
-            <div class="col-md-5 col-sm-12 position-relative">
-                <p style="color: white !important">Page {{ comments.number }} of {{ comments.paginator.num_pages }}</p>
-                {% if comments.has_previous %}
-                <div class="d-flex flex-row">
-                    <p><a href="?page=1">&laquo First</a></p>
-                    <p><a href="?page={{ comments.previous_page_number }}">Previous</a></p>
+                    </div>
                 </div>
-                {% endif %}
-        
-                {% comment %} Page {{ comments.number }} of {{ comments.paginator.num_pages }} {% endcomment %}
-        
-                {% if comments.has_next %}
-                <div class="d-flex flex-row">
-                    <p><a href="?page={{ comments.next_page_number }}">Next</a></p>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p><a href="?page={{ comments.paginator.num_pages }}">Last &raquo</a></p>
+                
+                {% comment %} <div>
+                    <button class="remove-default-btn"><i class="fa fa-comment-dots" onclick="myFunction('n{{ comment.pk }}')"></i></button>
                 </div>
-                {% endif %}
-                </div>
+                <div class="media marginleft reply-form" id="n{{ comment.pk }}" style="border-top: none !important; margin-top: none !important;">
+                    <div class="media-body" >
+                        <form method="POST" class="reply-form" action="{% url 'comment-reply' post.pk comment.pk %}">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success mt-3">Reply</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> {% endcomment %}
+               
+            {% endif %}
+            {% include 'social/replies.html' %}
+        {% endfor %}
+    </div>
+    </div>
+    <div class="row justify-content-center mt-3 page ">
+        <div class="col-md-5 col-sm-12 position-relative">
+            <p style="color: white !important">Page {{ comments.number }} of {{ comments.paginator.num_pages }}</p>
+            {% if comments.has_previous %}
+            <div class="d-flex flex-row">
+                <p><a href="?page=1">&laquo First</a></p>
+                <p><a href="?page={{ comments.previous_page_number }}">Previous</a></p>
+            </div>
+            {% endif %}
+    
+            {% comment %} Page {{ comments.number }} of {{ comments.paginator.num_pages }} {% endcomment %}
+    
+            {% if comments.has_next %}
+            <div class="d-flex flex-row">
+                <p><a href="?page={{ comments.next_page_number }}">Next</a></p>&nbsp;&nbsp;&nbsp;&nbsp;
+                <p><a href="?page={{ comments.paginator.num_pages }}">Last &raquo</a></p>
+            </div>
+            {% endif %}
             </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>
 
 
 
